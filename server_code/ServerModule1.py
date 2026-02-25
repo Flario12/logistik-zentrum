@@ -12,3 +12,6 @@ import anvil.server
 #   print("Hello, " + name + "!")
 #   return 42
 #
+
+def query_database():
+  
