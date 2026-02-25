@@ -14,5 +14,5 @@ class Form1(Form1Template):
     """    
     print(sql)
 
-    anvil.server.call()
+    anvil.server.call("query_database", sql)
     # Any code you write here will run before the form opens.
