@@ -12,8 +12,8 @@ components:
     name: data_grid_1
     properties:
       columns:
-      - {data_key: Fahrer, id: JKSDUP, title: Column 1}
-      - {data_key: Route, id: VJQQOR, title: Column 2}
+      - {data_key: Name, id: JKSDUP, title: Column 1}
+      - {data_key: Zielort, id: VJQQOR, title: Column 2}
     type: DataGrid
   layout_properties: {slot: default}
   name: content_panel
