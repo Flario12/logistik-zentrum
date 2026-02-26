@@ -14,6 +14,7 @@ components:
       columns:
       - {data_key: Name, id: JKSDUP, title: Column 1}
       - {data_key: Zielort, id: VJQQOR, title: Column 2}
+      - {data_key: Datum, id: EANUMN, title: Column 3}
     type: DataGrid
   layout_properties: {slot: default}
   name: content_panel

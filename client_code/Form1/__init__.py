@@ -18,13 +18,14 @@ class Form1(Form1Template):
         r.Zielort AS Zielort
       FROM Fahrer f 
       LEFT JOIN Fahrt fa ON f.FID = fa.FID
-      LEFT JOIN Route r ON fa.RID = r.RID;
-    """    
+      LEFT JOIN Route r ON fa.RID = r.RID
+      ;
+    """ 
+    
     print(sql)
     
     return_value = anvil.server.call("query_database_dict", sql)
     
-
     # Die Liste dem RepeatingPanel übergeben
     self.repeating_panel_1.items = return_value
     # Any code you write here will run before the form opens.
