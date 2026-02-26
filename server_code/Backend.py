@@ -1,3 +1,6 @@
+import anvil.tables as tables
+import anvil.tables.query as q
+from anvil.tables import app_tables
 import anvil.files
 from anvil.files import data_files
 import anvil.server
@@ -17,7 +20,7 @@ import sqlite3
 
 @anvil.server.callable
 def query_database(query: str):
-  with sqlite3.connect(data_files[".db"]) as conn: # Alternative für eine Variabelsetzung
+  with sqlite3.connect(data_files["logistik_zentrum.db"]) as conn: # Alternative für eine Variabelsetzung
     cur = conn.cursor()
     result = cur.execute(query).fetchall()
   return result
@@ -25,7 +28,7 @@ def query_database(query: str):
 
 @anvil.server.callable
 def query_database_dict(query: str):
-  with sqlite3.connect(data_files["gefaengnis.db"]) as conn: 
+  with sqlite3.connect(data_files["logistik_zentrum.db"]) as conn: 
     conn.row_factory = sqlite3.Row
     cur = conn.cursor()
     result = cur.execute(query).fetchall()
