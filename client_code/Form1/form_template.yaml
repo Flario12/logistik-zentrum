@@ -12,10 +12,16 @@ components:
     name: data_grid_1
     properties:
       columns:
-      - {data_key: Name, id: JKSDUP, title: Column 1}
-      - {data_key: Zielort, id: VJQQOR, title: Column 2}
-      - {data_key: Datum, id: EANUMN, title: Column 3}
+      - {data_key: Name, id: JKSDUP, title: Name des Fahrers}
+      - {data_key: Datum, id: EANUMN, title: Datum}
+      - {data_key: Startort, id: NLMDTZ, title: Startort}
+      - {data_key: Zielort, id: VJQQOR, title: Zielort}
     type: DataGrid
+  - event_bindings: {}
+    layout_properties: {grid_position: 'PHGLQU,NFSFDB'}
+    name: overview
+    properties: {text: Übersicht der Transporte}
+    type: Button
   layout_properties: {slot: default}
   name: content_panel
   properties: {col_widths: '{}'}
