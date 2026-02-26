@@ -23,6 +23,9 @@ class Form1(Form1Template):
     print(sql)
     
     return_value = anvil.server.call("query_database_dict", sql)
+    
+
+    # Die Liste dem RepeatingPanel übergeben
     self.repeating_panel_1.items = return_value
     # Any code you write here will run before the form opens.
     
