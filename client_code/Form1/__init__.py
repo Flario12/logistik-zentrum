@@ -19,5 +19,7 @@ class Form1(Form1Template):
     """    
     print(sql)
 
-    anvil.server.call("query_database_dict", sql)
+    return_value = anvil.server.call("query_database_dict", sql)
+    for d in return_value:
+      
     # Any code you write here will run before the form opens.
