@@ -31,6 +31,7 @@ class Form1(Form1Template):
     
     # Die Liste dem RepeatingPanel übergeben
     self.repeating_panel_1.items = return_value
+    self.drop_down_1()
     # Any code you write here will run before the form opens.
 
   @handle("overview", "click")
@@ -40,7 +41,7 @@ class Form1(Form1Template):
     pass
 
   @handle("drop_down_1", "change")
-  def drop_down_1_change(self, **event_args):
+  def drop_down_change(self):
     sql = """
       SELECT 
         f.Name AS Name,
