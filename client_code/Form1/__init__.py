@@ -54,7 +54,7 @@ class Form1(Form1Template):
     return_value = anvil.server.call("query_database_dict", sql)
     for d in return_value:
       # d["gebaeude_name"] = self.drop_down_gefaengnisliste.selected_value
-      d["gefaengnis_name"] = self.drop_down_gefaengnisliste.selected_value
+      d["Startort"] = self.drop_down_gefaengnisliste.selected_value
     print(return_value)
     self.repeating_panel_gebaeude.items = return_value
     pass
