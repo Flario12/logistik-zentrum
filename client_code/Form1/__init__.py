@@ -31,7 +31,7 @@ class Form1(Form1Template):
     
     # Die Liste dem RepeatingPanel übergeben
     self.repeating_panel_1.items = return_value
-    self.drop_down_1()
+    self.drop_down_change()
     # Any code you write here will run before the form opens.
 
   @handle("overview", "click")
@@ -41,8 +41,9 @@ class Form1(Form1Template):
     pass
 
   @handle("drop_down_1", "change")
-  def drop_down_change(self):
-    sql = """
+  def drop_down_change(self,**event_args):
+    ausgewaehlte_firma = self.drop_down_1.selected_value
+    sql = f"""
       SELECT 
         f.Name AS Name,
         fa.Datum AS Datum,
@@ -52,7 +53,8 @@ class Form1(Form1Template):
       FROM Fahrer f 
       LEFT JOIN Fahrt fa ON f.FID = fa.FID
       LEFT JOIN Route r ON fa.RID = r.RID
-      LEFT JOIN LKW l ON f.FID = l.FID
+      LEFT JOIN LKW l ON l.FID = f.FID
+      WHERE l.Firma = '{ausgewaehlte_firma}'
       ;
     """ 
     
@@ -60,7 +62,6 @@ class Form1(Form1Template):
     for d in return_value:
       # d["gebaeude_name"] = self.drop_down_gefaengnisliste.selected_value
       d["Firma"] = self.drop_down_1.selected_value
-    print(return_value)
     self.repeating_panel_1.items = return_value
     pass
     
