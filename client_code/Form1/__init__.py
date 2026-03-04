@@ -36,4 +36,9 @@ class Form1(Form1Template):
     """This method is called when the button is clicked"""
     open_form('Form1.Form2')
     pass
+
+  @handle("drop_down_1", "change")
+  def drop_down_1_change(self, **event_args):
+    """This method is called when an item is selected"""
+    pass
     
