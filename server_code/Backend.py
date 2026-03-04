@@ -35,3 +35,15 @@ def query_database_dict(query: str):
     cur = conn.cursor()
     result = cur.execute(query).fetchall()
   return [dict(row) for row in result]
+
+@anvil.server.callable
+def get_sales_from_db():
+  with sqlite3.connect(data_files["logistik_zentrum.db"]) as conn:
+    cur = conn.cursor()
+
+    query = "SELECT Datum, Kosten FROM Wartung ORDER BY Datum ASC"
+
+    results = cur.execute(query).fetchall()
+    datum_liste = [row[0] for row in results]
+    kosten_liste = [row[1] for row in results]
+    return datum_liste, kosten_liste

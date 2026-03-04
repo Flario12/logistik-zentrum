@@ -13,4 +13,21 @@ class Form2(Form2Template):
     self.init_components(**properties)
 
     # Any code you write here will run before the form opens.
+    self.Plot()
 
+    
+  def Plot(self):
+    x_werte = [10,20,30,40]
+    y_werte = [5,10,15,20]
+
+    x_db, y_db = anvil.server.call('get_sales_from_db')
+
+    Daten = go.Scatter(
+      x = x_db,
+      y = y_db,
+      mode="lines+markers",
+      name="Umsatz"
+    )
+
+    self.plot_1.data = [Daten]
+  
