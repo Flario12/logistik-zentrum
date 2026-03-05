@@ -28,9 +28,7 @@ def query_database(query: str):
 
 @anvil.server.callable
 def query_database_dict(query: str):
-  print("Hallo")
   with sqlite3.connect(data_files["logistik_zentrum.db"]) as conn: 
-    print("Hallo")
     conn.row_factory = sqlite3.Row
     cur = conn.cursor()
     result = cur.execute(query).fetchall()
@@ -41,7 +39,18 @@ def get_sales_from_db():
   with sqlite3.connect(data_files["logistik_zentrum.db"]) as conn:
     cur = conn.cursor()
 
-    query = "SELECT Datum, Kosten FROM Wartung ORDER BY Datum ASC"
+    query = """
+    SELECT
+      w.Datum, w.Kosten, l.Firma
+    FROM
+      Wartung w
+    LEFT JOIN 
+      LKW l
+    ON 
+      l.LID = w.LID
+    ORDER BY 
+      Datum ASC
+    """
 
     results = cur.execute(query).fetchall()
     datum_liste = [row[0] for row in results]

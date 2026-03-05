@@ -37,6 +37,7 @@ class Form1(Form1Template):
   @handle("overview", "click")
   def overview_click(self, **event_args):
     """This method is called when the button is clicked"""
+    ausgewaehlte_firma = self.drop_down_1.selected_value
     open_form('Form1.Form2')
     pass
 
