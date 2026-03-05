@@ -38,7 +38,7 @@ def query_database_dict(query: str):
 def get_sales_from_db():
   with sqlite3.connect(data_files["logistik_zentrum.db"]) as conn:
     cur = conn.cursor()
-
+    
     query = """
     SELECT
       w.Datum, w.Kosten, l.Firma
@@ -48,6 +48,7 @@ def get_sales_from_db():
       LKW l
     ON 
       l.LID = w.LID
+
     ORDER BY 
       Datum ASC
     """
