@@ -35,11 +35,11 @@ def query_database_dict(query: str):
   return [dict(row) for row in result]
 
 @anvil.server.callable
-def get_sales_from_db():
+def get_sales_from_db(selected_Company):
   with sqlite3.connect(data_files["logistik_zentrum.db"]) as conn:
     cur = conn.cursor()
     
-    query = """
+    query = f"""
     SELECT
       w.Datum, w.Kosten, l.Firma
     FROM
@@ -48,12 +48,14 @@ def get_sales_from_db():
       LKW l
     ON 
       l.LID = w.LID
-
+    WHERE
+      ? = 'Alle' OR l.Firma = ?
     ORDER BY 
       Datum ASC
     """
 
-    results = cur.execute(query).fetchall()
+    results = cur.execute(query, (selected_Company,selected_Company)).fetchall()
     datum_liste = [row[0] for row in results]
     kosten_liste = [row[1] for row in results]
+    firma_liste = [row[2] for row in results]
     return datum_liste, kosten_liste
