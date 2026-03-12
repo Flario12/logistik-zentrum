@@ -34,10 +34,30 @@ def query_database_dict(query: str):
     result = cur.execute(query).fetchall()
   return [dict(row) for row in result]
 
+def get_sales_by_company_from_db(selected_Company):
+  with sqlite3.connect(data_files["logistik_zentrum.db"]) as conn:
+    cur = conn.cursor()
+
+    
+    query = f"""
+        Select 
+          w.Datum, s.Gewicht, w.Kosten, l.Firma
+        From Fahrt f 
+        JOIN LKW l 
+          ON l.LID = f.LID
+        JOIN Sendung s
+          ON l.LID = s.LID
+        WHERE 'Alle' = ? OR ? = l.Firma
+        """
+
+    results = cur.ececute(query, (selected_Company,selected_Company).fetchall())
+    
+    
 @anvil.server.callable
 def get_sales_from_db(selected_Company):
   with sqlite3.connect(data_files["logistik_zentrum.db"]) as conn:
     cur = conn.cursor()
+    
     
     query = f"""
     SELECT

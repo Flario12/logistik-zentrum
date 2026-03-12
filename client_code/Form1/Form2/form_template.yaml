@@ -8,6 +8,10 @@ components:
   name: plot_1
   properties: {}
   type: Plot
+- layout_properties: {grid_position: 'YYMJZD,XLFDQT'}
+  name: plot_2
+  properties: {}
+  type: Plot
 - event_bindings: {}
   layout_properties: {grid_position: 'HYPDVF,TFQMWY'}
   name: drop_down_1
