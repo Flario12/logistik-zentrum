@@ -55,7 +55,7 @@ class Form1(Form1Template):
       LEFT JOIN Fahrt fa ON f.FID = fa.FID
       LEFT JOIN Route r ON fa.RID = r.RID
       LEFT JOIN LKW l ON l.FID = f.FID
-      WHERE l.Firma = '{ausgewaehlte_firma}' OR l.Firma = ' '
+      WHERE l.Firma = '{ausgewaehlte_firma}'
       ;
     """ 
     
