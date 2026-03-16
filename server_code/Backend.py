@@ -51,7 +51,9 @@ def get_sales_by_company_from_db(selected_Company):
         """
 
     results = cur.ececute(query, (selected_Company,selected_Company).fetchall())
-    
+    datum_liste = [row[0] for row in results]
+    kosten_liste = [row[1] for row in results]
+    firma_liste = [row[2] for row in results]
     
 @anvil.server.callable
 def get_sales_from_db(selected_Company):
@@ -60,22 +62,21 @@ def get_sales_from_db(selected_Company):
     
     
     query = f"""
-    SELECT
-      w.Datum, w.Kosten, l.Firma
-    FROM
-      Wartung w
-    LEFT JOIN 
-      LKW l
-    ON 
-      l.LID = w.LID
-    WHERE
-      ? = 'Alle' OR l.Firma = ?
-    ORDER BY 
-      Datum ASC
+      SELECT
+        w.Datum, w.Kosten, l.Firma
+      FROM
+        Wartung w
+      LEFT JOIN 
+        LKW l
+      ON 
+        l.LID = w.LID
+      WHERE
+        ? = 'Alle' OR l.Firma = ?
+      ORDER BY 
+        Datum ASC
     """
 
     results = cur.execute(query, (selected_Company,selected_Company)).fetchall()
     datum_liste = [row[0] for row in results]
     kosten_liste = [row[1] for row in results]
-    firma_liste = [row[2] for row in results]
     return datum_liste, kosten_liste
