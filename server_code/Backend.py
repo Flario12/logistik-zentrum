@@ -42,17 +42,13 @@ def get_sales_from_db(selected_Company):
     
     query = f"""
       SELECT
-        w.Datum, w.Kosten, l.Firma
-      FROM
-        Wartung w
-      LEFT JOIN 
-        LKW l
-      ON 
-        l.LID = w.LID
+       w.Datum, w.Kosten, l.Firma
+      FROM Wartung w
+       JOIN LKW l ON l.LID = w.LID
       WHERE
         ? = 'Alle' OR l.Firma = ?
       ORDER BY 
-        Datum ASC
+        w.Datum ASC
     """
 
     results = cur.execute(query, (selected_Company,selected_Company)).fetchall()
