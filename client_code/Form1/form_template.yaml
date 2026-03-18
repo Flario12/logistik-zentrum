@@ -8,7 +8,7 @@ components:
     layout_properties: {grid_position: 'DDHJFB,XVAXXO'}
     name: drop_down_1
     properties:
-      items: [Mustermann GmbH, Rauch, Toyota, Kraftwerk AG, Alle]
+      items: [Mustermann GmbH, Rauch, Toyota, Kraftwerk AG, Green Logistics, Alpin Transport, '']
     type: DropDown
   - components:
     - name: repeating_panel_1
@@ -23,11 +23,17 @@ components:
       - {data_key: Datum, id: EANUMN, title: Datum}
       - {data_key: Startort, id: NLMDTZ, title: Startort}
       - {data_key: Zielort, id: VJQQOR, title: Zielort}
+      - {data_key: Beschreibung, id: UZGTYM, title: Beschreibung}
     type: DataGrid
   - event_bindings: {}
     layout_properties: {grid_position: 'PHGLQU,NFSFDB'}
     name: overview
-    properties: {text: Übersicht der Transporte}
+    properties: {font_size: 16, text: Übersicht der Transporte}
+    type: Button
+  - event_bindings: {}
+    layout_properties: {grid_position: 'AHOBBY,VYCHHD'}
+    name: btn_form3
+    properties: {font_size: 16, text: Kosten_pro_Zielort}
     type: Button
   layout_properties: {slot: default}
   name: content_panel

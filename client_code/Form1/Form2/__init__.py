@@ -14,6 +14,7 @@ class Form2(Form2Template):
     
     # Any code you write here will run before the form opens.
     self.PlotScatter()
+    self.HistoPlot()
     self.drop_down_1_change()
 
     # Hier sollte man noch es ermöglichen, dass der Plot 
@@ -35,18 +36,29 @@ class Form2(Form2Template):
 
     self.plot_1.data = [Daten]
 
-def HistoPlot(self):
-  selected_company = self.drop_down_1.selected_value
+  def HistoPlot(self):
+    selected_company = self.drop_down_1.selected_value
+  
+    x_db, y_db = anvil.server.call("get_sales_from_db", selected_Company = selected_company)
+    
+    Daten = go.Histogram(
+      x = x_db,
+      nbinsx = 20,
+      name = "histogramm"
+    )
 
-  x_db, y_db = anvil.server.call("get_sales_", selected_Company = selected_company)
-
-  Daten = go.Histogram(alignmentgroup=
-                      
-                      )
+    self.plot_2.data = [Daten]
   
   @handle("drop_down_1", "change")
   def drop_down_1_change(self, **event_args):
     """This method is called when an item is selected"""
     self.PlotScatter()
+    self.HistoPlot()
+
+  @handle("button_1", "click")
+  def button_1_click(self, **event_args):
+    """This method is called when the button is clicked"""
+    open_form("Form1")
+    pass
 
 
