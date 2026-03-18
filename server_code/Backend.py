@@ -34,32 +34,11 @@ def query_database_dict(query: str):
     result = cur.execute(query).fetchall()
   return [dict(row) for row in result]
 
-def get_sales_by_company_from_db(selected_Company):
-  with sqlite3.connect(data_files["logistik_zentrum.db"]) as conn:
-    cur = conn.cursor()
-
-    
-    query = f"""
-        Select 
-          w.Datum, s.Gewicht, w.Kosten, l.Firma
-        From Fahrt f 
-        JOIN LKW l 
-          ON l.LID = f.LID
-        JOIN Sendung s
-          ON l.LID = s.LID
-        WHERE 'Alle' = ? OR ? = l.Firma
-        """
-
-    results = cur.ececute(query, (selected_Company,selected_Company).fetchall())
-    datum_liste = [row[0] for row in results]
-    kosten_liste = [row[1] for row in results]
-    firma_liste = [row[2] for row in results]
     
 @anvil.server.callable
 def get_sales_from_db(selected_Company):
   with sqlite3.connect(data_files["logistik_zentrum.db"]) as conn:
     cur = conn.cursor()
-    
     
     query = f"""
       SELECT
@@ -80,3 +59,65 @@ def get_sales_from_db(selected_Company):
     datum_liste = [row[0] for row in results]
     kosten_liste = [row[1] for row in results]
     return datum_liste, kosten_liste
+
+
+@anvil.server.callable
+def get_costs_objectiveplaces_from_db():
+  with sqlite3.connect(data_files["logistik_zentrum.db"]) as conn:
+    cur = conn.cursor()
+
+    query = """
+      SELECT
+         r.Zielort, w.Kosten
+      From Fahrt f
+      JOIN Wartung w ON f.LID = w.LID
+      JOIN Sendung s ON f.FAID = s.FAID
+      JOIN Route r ON f.RID = r.RID
+      ORDER BY w.Kosten ASC
+    """
+
+    results = cur.execute(query).fetchall()
+    Ziel_liste = [row[0] for row in results]
+    Kosten_liste = [row[1] for row in results]
+    return Ziel_liste, Kosten_liste
+
+@anvil.server.callable
+def get_costs_startplaces_from_db():
+  with sqlite3.connect(data_files["logistik_zentrum.db"]) as conn:
+    cur = conn.cursor()
+
+    query = """
+      SELECT
+         r.Startort, w.Kosten
+      From Fahrt f
+      JOIN Wartung w ON f.LID = w.LID
+      JOIN Sendung s ON f.FAID = s.FAID
+      JOIN Route r ON f.RID = r.RID
+      ORDER BY w.Kosten ASC
+    """
+
+    results = cur.execute(query).fetchall()
+    Start_liste = [row[0] for row in results]
+    Kosten_liste = [row[1] for row in results]
+    return Start_liste, Kosten_liste
+
+
+@anvil.server.callable
+def get_weights_places_from_db():
+  with sqlite3.connect(data_files["logistik_zentrum.db"]) as conn:
+    cur = conn.cursor()
+
+    query = """
+      SELECT
+        r.Zielort, s.Gewicht
+      From Fahrt f
+      JOIN Wartung w ON f.LID = w.LID
+      JOIN Sendung s ON f.FAID = s.FAID
+      JOIN Route r ON f.RID = r.RID
+      ORDER BY s.Gewicht ASC
+    """
+
+    results = cur.execute(query).fetchall()
+    Ziel_liste = [row[0] for row in results]
+    Gewicht_liste = [row[1] for row in results]
+    return Ziel_liste, Gewicht_liste

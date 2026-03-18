@@ -42,7 +42,7 @@ class Form2(Form2Template):
     x_db, y_db = anvil.server.call("get_sales_from_db", selected_Company = selected_company)
     
     Daten = go.Histogram(
-      x = y_db,
+      x = x_db,
       nbinsx = 20,
       name = "histogramm"
     )
@@ -54,5 +54,11 @@ class Form2(Form2Template):
     """This method is called when an item is selected"""
     self.PlotScatter()
     self.HistoPlot()
+
+  @handle("button_1", "click")
+  def button_1_click(self, **event_args):
+    """This method is called when the button is clicked"""
+    open_form("Form1")
+    pass
 
 

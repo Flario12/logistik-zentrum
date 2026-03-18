@@ -50,11 +50,13 @@ class Form1(Form1Template):
         fa.Datum AS Datum,
         r.Zielort AS Zielort,
         r.Startort AS Startort,
+        s.Beschreibung AS Beschreibung,
         l.Firma AS Firma
       FROM Fahrer f 
       LEFT JOIN Fahrt fa ON f.FID = fa.FID
       LEFT JOIN Route r ON fa.RID = r.RID
       LEFT JOIN LKW l ON l.FID = f.FID
+      LEFT JOIN Sendung s ON fa.FAID = s.FAID
       WHERE l.Firma = '{ausgewaehlte_firma}'
       ;
     """ 
@@ -64,5 +66,11 @@ class Form1(Form1Template):
       # d["gebaeude_name"] = self.drop_down_gefaengnisliste.selected_value
       d["Firma"] = self.drop_down_1.selected_value
     self.repeating_panel_1.items = return_value
+    pass
+
+  @handle("btn_form3", "click")
+  def btn_form3_click(self, **event_args):
+    """This method is called when the button is clicked"""
+    open_form('Form1.Form3')
     pass
     
